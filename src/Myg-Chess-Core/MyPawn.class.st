@@ -8,6 +8,20 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'as yet unclassified' }
+MyPawn >> diagonalSquares [
+
+	^ self isWhite
+		  ifTrue: [
+			  {
+				  square upLeftDiagonal.
+				  square upRightDiagonal } ]
+		  ifFalse: [
+			  {
+				  square downLeftDiagonal.
+				  square downRightDiagonal } ]
+]
+
 { #category : 'accessing' }
 MyPawn >> hasMoved [
 	^ hasMoved 
@@ -45,16 +59,20 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-    ^ ((self isWhite
-            ifTrue: [
-                hasMoved 
-                    ifTrue: [ { square up } ]
-                    ifFalse: [ { square up. square up up } ] ]
-            ifFalse: [
-                hasMoved 
-                    ifTrue: [ { square down } ]
-                    ifFalse: [ { square down. square down down } ] ])
-        select: [ :s |
-            s notNil and: [ s hasPiece not or: [ s contents color ~= color ] ] ])
-
+	^ (self isWhite
+		   ifTrue: [
+			   hasMoved
+				   ifTrue: [ { square up } ]
+				   ifFalse: [
+					   {
+						   square up.
+						   square up up } ] ]
+		   ifFalse: [
+			   hasMoved
+				   ifTrue: [ { square down } ]
+				   ifFalse: [
+					   {
+						   square down.
+						   square down down } ] ]) select: [ :s |
+		  s notNil and: [ s hasPiece not or: [ s contents color ~= color ] ] ]
 ]
