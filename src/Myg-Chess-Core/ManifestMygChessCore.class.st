@@ -13,7 +13,7 @@ Class {
 ManifestMygChessCore class >> ruleDeadBlockRuleV1FalsePositive [
 
 	<ignoreForCoverage>
-	^ #(#(#(#RGMethodDefinition #(#MyPawn #forwardSquaresLegal #false)) #'2024-10-03T20:16:30.875+02:00') )
+	^ #(#(#(#RGMethodDefinition #(#MyPawn #forwardSquaresLegal #false)) #'2024-10-03T20:16:30.875+02:00') #(#(#RGMethodDefinition #(#MyPawn #targetSquaresLegal: #false)) #'2024-11-03T17:23:24.202+01:00') )
 ]
 
 { #category : 'code-critics' }

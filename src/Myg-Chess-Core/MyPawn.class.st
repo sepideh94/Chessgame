@@ -9,6 +9,21 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
+MyPawn >> captureMovesFor: aPawn [ 
+    | captureMoves |
+    captureMoves := { 
+        aPawn square + (-1 @ (aPawn isWhite ifTrue: [1] ifFalse: [-1])).
+        aPawn square + (1 @ (aPawn isWhite ifTrue: [1] ifFalse: [-1]))
+    }.
+    
+    captureMoves := captureMoves select: [ :s | 
+        s notNil and: [ s hasPiece and: [ s contents color ~= aPawn color ] ] 
+    ].
+    ^ captureMoves
+
+]
+
+{ #category : 'as yet unclassified' }
 MyPawn >> diagonalSquares [
 
 	^ self isWhite
@@ -20,6 +35,28 @@ MyPawn >> diagonalSquares [
 			  {
 				  square downLeftDiagonal.
 				  square downRightDiagonal } ]
+]
+
+{ #category : 'as yet unclassified' }
+MyPawn >> forwardMovesFor: aPawn [
+	| forwardMoves |
+	forwardMoves := (aPawn isWhite
+		                 ifTrue: [
+			                 aPawn hasMoved
+				                 ifTrue: [ { aPawn square up } ]
+				                 ifFalse: [
+					                 {
+						                 aPawn square up.
+						                 aPawn square up up } ] ]
+		                 ifFalse: [
+			                 aPawn hasMoved
+				                 ifTrue: [ { aPawn square down } ]
+				                 ifFalse: [
+					                 {
+						                 aPawn square down.
+						                 aPawn square down down } ] ]) select: [ :s |
+		                s notNil and: [ s hasPiece not ] ].
+	^ forwardMoves 
 ]
 
 { #category : 'accessing' }
@@ -57,22 +94,16 @@ MyPawn >> renderPieceOn: aSquare [
 ]
 
 { #category : 'rendering' }
-MyPawn >> targetSquaresLegal: aBoolean [
+MyPawn >> targetSquaresLegal: aBoolean [ 
+    | forwardMoves captureMoves |
 
-	^ (self isWhite
-		   ifTrue: [
-			   hasMoved
-				   ifTrue: [ { square up } ]
-				   ifFalse: [
-					   {
-						   square up.
-						   square up up } ] ]
-		   ifFalse: [
-			   hasMoved
-				   ifTrue: [ { square down } ]
-				   ifFalse: [
-					   {
-						   square down.
-						   square down down } ] ]) select: [ :s |
-		  s notNil and: [ s hasPiece not or: [ s contents color ~= color ] ] ]
+    "Get forward moves"
+    forwardMoves := self forwardMovesFor: self.
+    
+    "Get capture moves"
+    captureMoves := self captureMovesFor: self.
+    
+    "Combine both types of moves"
+    ^ captureMoves, forwardMoves
+
 ]
