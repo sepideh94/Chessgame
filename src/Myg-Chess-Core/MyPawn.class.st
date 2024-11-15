@@ -39,24 +39,30 @@ MyPawn >> diagonalSquares [
 
 { #category : 'as yet unclassified' }
 MyPawn >> forwardMovesFor: aPawn [
-	| forwardMoves |
-	forwardMoves := (aPawn isWhite
-		                 ifTrue: [
-			                 aPawn hasMoved
-				                 ifTrue: [ { aPawn square up } ]
-				                 ifFalse: [
-					                 {
-						                 aPawn square up.
-						                 aPawn square up up } ] ]
-		                 ifFalse: [
-			                 aPawn hasMoved
-				                 ifTrue: [ { aPawn square down } ]
-				                 ifFalse: [
-					                 {
-						                 aPawn square down.
-						                 aPawn square down down } ] ]) select: [ :s |
-		                s notNil and: [ s hasPiece not ] ].
-	^ forwardMoves 
+
+	| forwardMoves nextSquare |
+	forwardMoves := OrderedCollection new.
+
+	"Determine the first square"
+	nextSquare := aPawn isWhite
+		              ifTrue: [ aPawn square up ]
+		              ifFalse: [ aPawn square down ].
+
+	"Check the first square"
+	nextSquare notNil and: [
+		nextSquare hasPiece ifFalse: [
+			forwardMoves add: nextSquare.
+
+			"Determine the second square only if the first square is empty and the pawn has not moved"
+			aPawn hasMoved ifFalse: [
+				nextSquare := aPawn isWhite
+					              ifTrue: [ nextSquare up ]
+					              ifFalse: [ nextSquare down ].
+
+				nextSquare notNil and: [
+					nextSquare hasPiece ifFalse: [ forwardMoves add: nextSquare ] ] ] ] ].
+
+	^ forwardMoves
 ]
 
 { #category : 'accessing' }
