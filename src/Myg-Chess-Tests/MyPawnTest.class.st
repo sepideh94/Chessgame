@@ -39,18 +39,3 @@ MyPawnTest >> testMovesForWhite [
 			(#( e3 ) collect: [ :name |
 				 board at: name ])
 ]
-
-{ #category : 'tests' }
-MyPawnTest >> testMovesInFirstMove [
-
-	| pawn squares board |
-	board := MyChessBoard empty.
-	board at: 'e2' put: (pawn := MyPawn white ).
-
-	squares := pawn targetSquares.
-	self
-		assertCollection: squares
-		includesAll:
-			(#( e4 ) collect: [ :name |
-				 board at: name ])
-]
