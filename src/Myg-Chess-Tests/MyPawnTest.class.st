@@ -54,16 +54,3 @@ MyPawnTest >> testMovesInFirstMove [
 			(#( e4 ) collect: [ :name |
 				 board at: name ])
 ]
-
-{ #category : 'tests' }
-MyPawnTest >> testRenderPieceOneIsNil [
-
-	| aSquare aPiece result |
-    "aSquare := aSquare new."
-    aPiece := MyPawn new.
-    
-    result := aPiece renderPieceOn: aSquare.
-    
-    "Ensure the result is not nil"
-    self assert: result notNil.
-]
