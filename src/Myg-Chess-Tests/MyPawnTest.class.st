@@ -15,15 +15,14 @@ MyPawnTest >> testId [
 MyPawnTest >> testMovesForBlack [
 
 	| pawn squares board |
+	self halt.
 	board := MyChessBoard empty.
-	board at: 'e7' put: (pawn := MyPawn white ).
+	board at: 'e7' put: (pawn := MyPawn white).
 
 	squares := pawn targetSquares.
 	self
 		assertCollection: squares
-		includesAll:
-			(#( e8 ) collect: [ :name |
-				 board at: name ])
+		includesAll: (#( e8 ) collect: [ :name | board at: name ])
 ]
 
 { #category : 'tests' }
