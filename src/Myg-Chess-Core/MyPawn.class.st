@@ -13,8 +13,8 @@ MyPawn >> id [
 
 { #category : 'rendering' }
 MyPawn >> renderPieceOn: aSquare [
-	
-	^ aSquare renderPawn: self
+
+	^ self subclassResponsibility
 ]
 
 { #category : 'rendering' }

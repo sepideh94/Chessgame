@@ -14,7 +14,7 @@ MyBishop >> id [
 { #category : 'rendering' }
 MyBishop >> renderPieceOn: aSquare [
 
-	^ aSquare renderWhiteBishop
+	^ self subclassResponsibility
 ]
 
 { #category : 'rendering' }

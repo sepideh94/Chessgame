@@ -11,9 +11,7 @@ Class {
 { #category : 'initialization' }
 MyBlackChessSquare >> initialize [
 
-	^ super initialize 
-	color: Color black.
-	
+	^super initialize color: Color black
 ]
 
 { #category : 'rendering' }

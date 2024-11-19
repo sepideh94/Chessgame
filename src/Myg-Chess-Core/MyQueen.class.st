@@ -8,7 +8,7 @@ Class {
 { #category : 'rendering' }
 MyQueen >> renderPieceOn: aSquare [
 
-	^ aSquare renderWhiteQueen
+	^ self subclassResponsibility
 ]
 
 { #category : 'rendering' }

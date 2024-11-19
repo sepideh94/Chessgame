@@ -112,8 +112,7 @@ MyChessBoard >> initialize [
 		aLayoutConstraints horizontal fitContent.
 		aLayoutConstraints vertical fitContent ].
 
-	self initializeSquares.
-	self initializePiecess.
+	self initializeSquares
 ]
 
 { #category : 'initialization' }

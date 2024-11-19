@@ -8,7 +8,7 @@ Class {
 { #category : 'initialization' }
 MyWhiteChessSquare >> initialize [
 
-	^ super initialize color: Color white 
+	^ super initialize color: Color white
 ]
 
 { #category : 'rendering' }
