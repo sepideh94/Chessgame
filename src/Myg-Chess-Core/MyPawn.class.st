@@ -9,32 +9,22 @@ Class {
 }
 
 { #category : 'as yet unclassified' }
-MyPawn >> captureMovesFor: aPawn [ 
-    | captureMoves |
-    captureMoves := { 
-        aPawn square + (-1 @ (aPawn isWhite ifTrue: [1] ifFalse: [-1])).
-        aPawn square + (1 @ (aPawn isWhite ifTrue: [1] ifFalse: [-1]))
-    }.
-    
-    captureMoves := captureMoves select: [ :s | 
-        s notNil and: [ s hasPiece and: [ s contents color ~= aPawn color ] ] 
-    ].
-    ^ captureMoves
+MyPawn >> captureMovesFor: aPawn [
 
-]
+	| captureMoves |
+	"Déterminer les cases diagonales/ -1@1 est gauche diagonale/ 1@1 est droite diagonale"
+	captureMoves := {
+		                (aPawn square + (-1 @ (aPawn isWhite
+			                   ifTrue: [ 1 ]
+			                   ifFalse: [ -1 ]))).
+		                (aPawn square + (1 @ (aPawn isWhite
+			                   ifTrue: [ 1 ]
+			                   ifFalse: [ -1 ]))) }. "on remplace par -1 dans l'axe y pour le black"
 
-{ #category : 'as yet unclassified' }
-MyPawn >> diagonalSquares [
-
-	^ self isWhite
-		  ifTrue: [
-			  {
-				  square upLeftDiagonal.
-				  square upRightDiagonal } ]
-		  ifFalse: [
-			  {
-				  square downLeftDiagonal.
-				  square downRightDiagonal } ]
+	captureMoves := captureMoves select: [ :s |
+		                s notNil and: [
+			                s hasPiece and: [ s contents color ~= aPawn color ] ] ].
+	^ captureMoves
 ]
 
 { #category : 'as yet unclassified' }
@@ -54,11 +44,11 @@ MyPawn >> forwardMovesFor: aPawn [
 			forwardMoves add: nextSquare.
 
 			"Determine the second square only if the first square is empty and the pawn has not moved"
-			aPawn hasMoved ifFalse: [
+			aPawn hasMoved ifFalse: [ "voir si le pion a déja fait un move ou pas"
 				nextSquare := aPawn isWhite
 					              ifTrue: [ nextSquare up ]
 					              ifFalse: [ nextSquare down ].
-
+				"check une autre fois"
 				nextSquare notNil and: [
 					nextSquare hasPiece ifFalse: [ forwardMoves add: nextSquare ] ] ] ] ].
 
