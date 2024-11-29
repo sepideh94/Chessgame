@@ -1,9 +1,6 @@
 Class {
 	#name : 'MyPawn',
 	#superclass : 'MyPiece',
-	#instVars : [
-		'hasMoved'
-	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
 }
@@ -84,9 +81,9 @@ MyPawn >> moveTo: aSquare [
 ]
 
 { #category : 'rendering' }
-MyPawn >> renderPieceOn: aSquare [ 
-	
-	^ aSquare renderPawn: self
+MyPawn >> renderPieceOn: aSquare [
+
+	^ self subclassResponsibility
 ]
 
 { #category : 'rendering' }

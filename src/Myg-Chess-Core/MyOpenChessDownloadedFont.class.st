@@ -1,8 +1,3 @@
-"
-I'm (a particular version of) the 'Noto Color Emoji' font.
-
-Thee the `baseUrl`.
-"
 Class {
 	#name : 'MyOpenChessDownloadedFont',
 	#superclass : 'AeDownloadedFont',

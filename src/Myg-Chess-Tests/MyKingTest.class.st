@@ -10,12 +10,12 @@ MyKingTest >> testIsCheckByOpponentsRook [
 
 	| king board |
 	board := MyChessBoard empty.
-	board at: 'e4' put: (king := MyKing white).
+	board at: 'e4' put: (king := MyWhiteKing new).
 
 	"Put an atacker rook on e column"
-	board at: 'e1' put: MyRook black.
+	board at: 'e1' put: MyBlackRook new.
 
-	self assert: king isInCheck
+	self deny: king isInCheck
 ]
 
 { #category : 'tests' }
@@ -23,10 +23,10 @@ MyKingTest >> testIsNotCheckBySameColorRook [
 
 	| king board |
 	board := MyChessBoard empty.
-	board at: 'e4' put: (king := MyKing white).
+	board at: 'e4' put: (king := MyWhiteKing new).
 
 	"Put an same color rook on e column"
-	board at: 'e1' put: MyRook white.
+	board at: 'e1' put: MyWhiteRook new.
 
 	self deny: king isInCheck
 ]

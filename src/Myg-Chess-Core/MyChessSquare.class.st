@@ -17,7 +17,7 @@ Class {
 { #category : 'api - text weight' }
 MyChessSquare class >> black [
 
-	^ self color: Color black
+	^ MyBlackChessSquare new.
 ]
 
 { #category : 'api - text weight' }
@@ -32,7 +32,7 @@ MyChessSquare class >> color: aColor [
 { #category : 'api - text weight' }
 MyChessSquare class >> white [
 
-	^ self color: Color white
+	^ MyWhiteChessSquare new.
 ]
 
 { #category : 'arithmetic' }
