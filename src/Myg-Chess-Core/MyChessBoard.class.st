@@ -96,8 +96,8 @@ MyChessBoard >> initialize [
 
 	super initialize.
 
-	self blackColor: Color blue.
-	self whiteColor: Color orange.
+	self blackColor: Color black.
+	self whiteColor: Color red.
 
 	state := MyUnselectedState board: self.
 	grid := Dictionary new.
