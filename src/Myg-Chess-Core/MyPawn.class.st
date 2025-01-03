@@ -1,55 +1,66 @@
 Class {
 	#name : 'MyPawn',
 	#superclass : 'MyPiece',
+	#instVars : [
+		'hasMoved'
+	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
 }
 
 { #category : 'as yet unclassified' }
+MyPawn >> captureDirectionForPawn: aPawn [
+    self subclassResponsibility.
+
+]
+
+{ #category : 'as yet unclassified' }
 MyPawn >> captureMovesFor: aPawn [
+    | captureMoves |
+    
+    "Obtenir les directions de capture en appelant la méthode spécifique à chaque sous-classe"
+    captureMoves := self captureDirectionForPawn: aPawn.
+    
+    "Filtrer les directions valides"
+    captureMoves := captureMoves select: [ :s | 
+        s notNil and: [ 
+            s hasPiece and: [ s contents color ~= aPawn color ] 
+        ] 
+    ].
+    
+    "Retourner les directions valides"
+    ^ captureMoves
 
-	| captureMoves |
-	"Déterminer les cases diagonales/ -1@1 est gauche diagonale/ 1@1 est droite diagonale"
-	captureMoves := {
-		                (aPawn square + (-1 @ (aPawn isWhite
-			                   ifTrue: [ 1 ]
-			                   ifFalse: [ -1 ]))).
-		                (aPawn square + (1 @ (aPawn isWhite
-			                   ifTrue: [ 1 ]
-			                   ifFalse: [ -1 ]))) }. "on remplace par -1 dans l'axe y pour le black"
+]
 
-	captureMoves := captureMoves select: [ :s |
-		                s notNil and: [
-			                s hasPiece and: [ s contents color ~= aPawn color ] ] ].
-	^ captureMoves
+{ #category : 'accessing' }
+MyPawn >> firstForwardSquare [
+"Subclasses must override this method to determine the first forward square."
+    self subclassResponsibility.
 ]
 
 { #category : 'as yet unclassified' }
 MyPawn >> forwardMovesFor: aPawn [
+    | forwardMoves nextSquare |
+    forwardMoves := OrderedCollection new.
 
-	| forwardMoves nextSquare |
-	forwardMoves := OrderedCollection new.
+    "Determine the first square"
+    nextSquare := aPawn firstForwardSquare.
 
-	"Determine the first square"
-	nextSquare := aPawn isWhite
-		              ifTrue: [ aPawn square up ]
-		              ifFalse: [ aPawn square down ].
+    "Check the first square"
+    nextSquare notNil and: [
+        nextSquare hasPiece ifFalse: [
+            forwardMoves add: nextSquare.
 
-	"Check the first square"
-	nextSquare notNil and: [
-		nextSquare hasPiece ifFalse: [
-			forwardMoves add: nextSquare.
+            "Determine the second square only if the first square is empty and the pawn has not moved"
+            aPawn hasMoved ifFalse: [
+                nextSquare := aPawn nextForwardSquare: nextSquare.
 
-			"Determine the second square only if the first square is empty and the pawn has not moved"
-			aPawn hasMoved ifFalse: [ "voir si le pion a déja fait un move ou pas"
-				nextSquare := aPawn isWhite
-					              ifTrue: [ nextSquare up ]
-					              ifFalse: [ nextSquare down ].
-				"check une autre fois"
-				nextSquare notNil and: [
-					nextSquare hasPiece ifFalse: [ forwardMoves add: nextSquare ] ] ] ] ].
+                nextSquare notNil and: [
+                    nextSquare hasPiece ifFalse: [ forwardMoves add: nextSquare ] ] ] ] ].
 
-	^ forwardMoves
+    ^ forwardMoves
+
 ]
 
 { #category : 'accessing' }
@@ -78,6 +89,13 @@ MyPawn >> initialize [
 MyPawn >> moveTo: aSquare [
 	super moveTo: aSquare.
 	hasMoved := true
+]
+
+{ #category : 'as yet unclassified' }
+MyPawn >> nextForwardSquare: aSquare [
+    "Subclasses must override this method to determine the next forward square."
+    self subclassResponsibility.
+
 ]
 
 { #category : 'rendering' }

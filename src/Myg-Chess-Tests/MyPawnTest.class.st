@@ -11,10 +11,10 @@ MyPawnTest >> testBlackPawnCaptureMovesPossible [
     board := MyChessBoard empty.
 
     "Place a black pawn on d5"
-    board at: 'd5' put: (blackPawn := MyPawn black).
+    board at: 'd5' put: (blackPawn := MyBlackPawn new).
 
     "Place a white piece on c4 (to be captured)"
-    board at: 'c4' put: (whitePawn := MyPawn white).
+    board at: 'c4' put: (whitePawn := MyWhitePawn new).
 
     "Verify that the pawn can capture the white piece on c4"
     squares := blackPawn targetSquaresLegal: true.
@@ -26,7 +26,7 @@ MyPawnTest >> testBlackPawnCaptureMovesPossible [
 MyPawnTest >> testCannotMoveOffBoard [
     | pawn board squares |
     board := MyChessBoard empty.
-    board at: 'e1' put: (pawn := MyPawn white).  "Pawn is at the edge of the board"
+    board at: 'e1' put: (pawn := MyWhitePawn new).  "Pawn is at the edge of the board"
     
     "Check that the pawn cannot move up beyond the board"
     squares := pawn targetSquaresLegal: true.
@@ -38,7 +38,7 @@ MyPawnTest >> testCannotMoveOffBoard [
 MyPawnTest >> testCannotMoveOffBoardB [
     | pawn board squares |
     board := MyChessBoard empty.
-    board at: 'e8' put: (pawn := MyPawn black).  "Pawn is at the edge of the board"
+    board at: 'e8' put: (pawn := MyBlackPawn new).  "Pawn is at the edge of the board"
     
     "Check that the pawn cannot move up beyond the board"
     squares := pawn targetSquaresLegal: true.
@@ -57,9 +57,8 @@ MyPawnTest >> testLengthOneFirstMovesIsPossible [
 
 	| pawn board squares |
 	board := MyChessBoard empty.
-	board at: 'e2' put: (pawn := MyPawn white).
+	board at: 'e2' put: (pawn := MyWhitePawn new).
 
-	"Vérifier que le pion peut se déplacer de deux cases pour la premiere fois"
 	squares := pawn targetSquaresLegal: true.
 	self assert: (squares includes: (board at: 'e3'))
 ]
@@ -69,9 +68,8 @@ MyPawnTest >> testLengthOneFirstMovesIsPossibleB [
 
 	| pawn board squares |
 	board := MyChessBoard empty.
-	board at: 'e7' put: (pawn := MyPawn black).
+	board at: 'e7' put: (pawn := MyBlackPawn new).
 
-	"Vérifier que le pion peut se déplacer de deux cases pour la premiere fois"
 	squares := pawn targetSquaresLegal: true.
 	self assert: (squares includes: (board at: 'e6'))
 ]
@@ -81,7 +79,7 @@ MyPawnTest >> testLengthTwoFirstMovesIsPossible [
 
 	| pawn board squares |
 	board := MyChessBoard empty.
-	board at: 'e2' put: (pawn := MyPawn white).
+	board at: 'e2' put: (pawn := MyWhitePawn new).
 
 	"Vérifier que le pion peut se déplacer de deux cases pour la premiere fois"
 	squares := pawn targetSquaresLegal: true.
@@ -93,7 +91,7 @@ MyPawnTest >> testLengthTwoFirstMovesIsPossibleB [
 
 	| pawn board squares |
 	board := MyChessBoard empty.
-	board at: 'e7' put: (pawn := MyPawn black).
+	board at: 'e7' put: (pawn := MyBlackPawn new).
 
 	"Vérifier que le pion peut se déplacer de deux cases pour la premiere fois"
 	squares := pawn targetSquaresLegal: true.
@@ -104,7 +102,7 @@ MyPawnTest >> testLengthTwoFirstMovesIsPossibleB [
 MyPawnTest >> testSubsequentMovesOneSquareOnly [
     | pawn board squares |
     board := MyChessBoard empty.
-    board at: 'e3' put: (pawn := MyPawn white).
+    board at: 'e3' put: (pawn := MyWhitePawn new).
     pawn hasMoved: true.
 
     "Check that the pawn can move only one square after its first move"
@@ -119,7 +117,7 @@ MyPawnTest >> testSubsequentMovesOneSquareOnlyB [
 
 	| pawn board squares |
 	board := MyChessBoard empty.
-	board at: 'e5' put: (pawn := MyPawn black).
+	board at: 'e5' put: (pawn := MyBlackPawn new).
 	pawn hasMoved: true.
 
 	"Check that the pawn can move only one square after its first move"
@@ -135,13 +133,14 @@ MyPawnTest >> testWhitePawnCaptureMovesPossible [
 	board := MyChessBoard empty.
 
 	"Place a white pawn on e4"
-	board at: 'e4' put: (whitePawn := MyPawn white).
+	board at: 'e3' put: (whitePawn := MyWhitePawn new).
 
 	"Place a black piece on d5 (to be captured)"
-	board at: 'd5' put: (blackPawn := MyPawn black).
+	board at: 'd5' put: (blackPawn := MyBlackPawn new).
 
 	"Verify that the pawn can capture the black piece on d5"
-
+	
 	squares := whitePawn targetSquaresLegal: true.
-	self assert: (squares includes: (board at: 'd5'))
+	self assert: (squares includes: (board at: 'd5')).
+	
 ]
