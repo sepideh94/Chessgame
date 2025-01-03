@@ -7,7 +7,6 @@ Class {
 
 { #category : 'accessing' }
 MyRook >> id [
-
 	^ 'R'
 ]
 
