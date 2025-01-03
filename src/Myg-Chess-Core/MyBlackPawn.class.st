@@ -7,15 +7,10 @@ Class {
 
 { #category : 'as yet unclassified' }
 MyBlackPawn >> captureDirectionForPawn: aPawn [
-    | captureMoves |
-    
-    "Calculer les directions de capture pour un pion noir"
-    captureMoves := { 
-        aPawn square + (-1 @ -1). "Diagonale bas-gauche"
-        aPawn square + (1 @ -1).  "Diagonale bas-droite"
-    }.
-    
-    ^ captureMoves
+    "Retourne les directions spécifiques aux pions noirs"
+    ^ { aPawn square + (-1 @ -1). "Diagonale bas-gauche" .
+        aPawn square + (1 @ -1). "Diagonale bas-droite" }
+
 
 ]
 

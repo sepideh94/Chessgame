@@ -128,19 +128,17 @@ MyPawnTest >> testSubsequentMovesOneSquareOnlyB [
 
 { #category : 'tests' }
 MyPawnTest >> testWhitePawnCaptureMovesPossible [
+    | whitePawn blackPawn board squares |
+    board := MyChessBoard empty.
 
-	| whitePawn blackPawn board squares |
-	board := MyChessBoard empty.
+    "Place a white pawn on e4"
+    board at: 'e4' put: (whitePawn := MyWhitePawn new).
 
-	"Place a white pawn on e4"
-	board at: 'e3' put: (whitePawn := MyWhitePawn new).
+    "Place a black piece on d5 (to be captured)"
+    board at: 'd5' put: (blackPawn := MyBlackPawn new).
 
-	"Place a black piece on d5 (to be captured)"
-	board at: 'd5' put: (blackPawn := MyBlackPawn new).
+    "Verify that the pawn can capture the black piece on d5"
+    squares := whitePawn targetSquaresLegal: true.
+    self assert: (squares includes: (board at: 'd5')).
 
-	"Verify that the pawn can capture the black piece on d5"
-	
-	squares := whitePawn targetSquaresLegal: true.
-	self assert: (squares includes: (board at: 'd5')).
-	
 ]

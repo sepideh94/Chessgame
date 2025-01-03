@@ -7,15 +7,9 @@ Class {
 
 { #category : 'as yet unclassified' }
 MyWhitePawn >> captureDirectionForPawn: aPawn [
-    | captureMoves |
-    
-    "Calculer les directions de capture pour un pion blanc"
-    captureMoves := { 
-        aPawn square + (-1 @ 1). "Diagonale haut-gauche"
-        aPawn square + (1 @ 1).  "Diagonale haut-droite"
-    }.
-    
-    ^ captureMoves
+    "Retourne les directions spécifiques aux pions blancs"
+    ^ { aPawn square + (-1 @ 1). "Diagonale haut-gauche" .
+        aPawn square + (1 @ 1). "Diagonale haut-droite" }
 
 ]
 

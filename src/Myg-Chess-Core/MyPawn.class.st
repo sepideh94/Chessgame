@@ -18,17 +18,17 @@ MyPawn >> captureDirectionForPawn: aPawn [
 MyPawn >> captureMovesFor: aPawn [
     | captureMoves |
     
-    "Obtenir les directions de capture en appelant la méthode spécifique à chaque sous-classe"
+    "Obtenir les directions de capture pour chaque sous-classe"
     captureMoves := self captureDirectionForPawn: aPawn.
     
     "Filtrer les directions valides"
     captureMoves := captureMoves select: [ :s | 
-        s notNil and: [ 
-            s hasPiece and: [ s contents color ~= aPawn color ] 
-        ] 
+        s notNil and: [
+            (s hasPiece) and: [ (s contents color ~= aPawn color) ] "Vérifier si une pièce peut être capturée"
+        ]
     ].
     
-    "Retourner les directions valides"
+    "Retourner les directions filtrées"
     ^ captureMoves
 
 ]
