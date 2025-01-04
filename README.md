@@ -36,11 +36,17 @@ Throughout the coding process, I ensured each step was validated by writing new 
 You can open the chess game using the following expression:
 
 board := MyChessGame freshGame.
+
 board size: 800@600.
+
 space := BlSpace new.
+
 space root addChild: board.
+
 space pulse.
+
 space resizable: true.
+
 space show.
 
 ### Implemented Design Patterns:
