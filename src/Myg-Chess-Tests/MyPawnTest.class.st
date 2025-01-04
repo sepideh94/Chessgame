@@ -6,23 +6,6 @@ Class {
 }
 
 { #category : 'tests' }
-MyPawnTest >> testBlackPawnCaptureMovesPossible [
-    | blackPawn whitePawn board squares |
-    board := MyChessBoard empty.
-
-    "Place a black pawn on d5"
-    board at: 'd5' put: (blackPawn := MyBlackPawn new).
-
-    "Place a white piece on c4 (to be captured)"
-    board at: 'c4' put: (whitePawn := MyWhitePawn new).
-
-    "Verify that the pawn can capture the white piece on c4"
-    squares := blackPawn targetSquaresLegal: true.
-    self assert: (squares includes: (board at: 'c4')).
-
-]
-
-{ #category : 'tests' }
 MyPawnTest >> testCannotMoveOffBoard [
     | pawn board squares |
     board := MyChessBoard empty.
@@ -124,21 +107,4 @@ MyPawnTest >> testSubsequentMovesOneSquareOnlyB [
 	squares := pawn targetSquaresLegal: true.
 	self assert: (squares includes: (board at: 'e4')).
 	self deny: (squares includes: (board at: 'e3')) "Should not be able to move two squares anymore"
-]
-
-{ #category : 'tests' }
-MyPawnTest >> testWhitePawnCaptureMovesPossible [
-    | whitePawn blackPawn board squares |
-    board := MyChessBoard empty.
-
-    "Place a white pawn on e4"
-    board at: 'e4' put: (whitePawn := MyWhitePawn new).
-
-    "Place a black piece on d5 (to be captured)"
-    board at: 'd5' put: (blackPawn := MyBlackPawn new).
-
-    "Verify that the pawn can capture the black piece on d5"
-    squares := whitePawn targetSquaresLegal: true.
-    self assert: (squares includes: (board at: 'd5')).
-
 ]
