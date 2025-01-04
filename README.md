@@ -32,6 +32,17 @@ This change allowed me to eliminate all rendering methods containing four condit
 
 Throughout the coding process, I ensured each step was validated by writing new tests. Additionally, I ensured that all the original tests in the Myg-Chess-Test class passed successfully. I wrote tests for all 24 cases to verify that the rendering returned the correct results for each scenario. Furthermore, I added tests for exceptional cases, such as NilColor, NilPiece, and invalid data types. Most of my tests focused on ensuring the correctness of all rendering types and verifying edge cases to strengthen the robustness of the implementation.
 
+### Using it
+You can open the chess game using the following expression:
+
+board := MyChessGame freshGame.
+board size: 800@600.
+space := BlSpace new.
+space root addChild: board.
+space pulse.
+space resizable: true.
+space show.
+
 ### Implemented Design Patterns:
 Double Dispatch: Simplifies rendering by dynamically adapting to the runtime types of the piece and square, eliminating conditional logic.
 Polymorphism: different implementation for renderPieceOn method.
